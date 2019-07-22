@@ -37,13 +37,12 @@ def inverse(a,b):
     c=np.concatenate([c,id], axis=1)
     for e in range (n):
         t=c[e,e]
-        for j in range(e, (2 * n)+1):
+        for j in range(e,n+1):
             c[e,j]=c[e,j]/t #Normalizar fila e
         for i in range (n):
             if i!=e:
                 t=c[i,e]
-                for j in range(e, (2 * n)+1):
+                for j in range(e, n+1):
                     c[i, j]=c[i, j]-t*c[e,j] #Reducir otras filas
-    inv=c[:, n+1:]
-    x=c[:,n]
-    return inv
+    x=c[n:,len(c)]
+    return x
