@@ -1,4 +1,19 @@
-﻿#Gauss-Jordan
+﻿#Biseccion
+def biseccion(f,a,b,e):
+    while b-a>=e:
+        c=(a+b)/2
+        if f(c)==0:
+            return c
+        else:
+            if f(a)*f(c)>0:
+                a=c
+            else:
+                b=c
+    return c
+
+
+
+#Gauss-Jordan
 import numpy as np
 def gaussjordan(a,b):
     n=len(b)
@@ -162,3 +177,26 @@ def gaussSeidelMod (a,b,x,e,m):
         else:
             t=x.copy()
     return [[],m]
+
+#Interpolación
+
+def lagrange(x,y,u=None):
+    n=len(x)
+    t=Symbol('t')
+    p=0
+    for i in range(n):
+        L=1
+        for j in range(n):
+            if j!=i:
+                L=L*(t-x[j])/(x[i]-x[j])
+        p=p+y[i]*L
+        p=expand(p)
+    if u==None:
+        return p
+    elif type(u)==list:
+        v=[]
+        for i in range(len(u)):
+            v=v+[p.subs(t,u[i])]
+        return v
+    else:
+        return p.subs(t,u)
